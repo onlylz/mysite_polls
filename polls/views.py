@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.views import generic
 from .models import Question, Choice
 
-
+# 基于函数的view
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
     #output = ','.join([q.question_text for q in latest_question_list])
@@ -12,7 +12,7 @@ def index(request):
     context = {'latest_question_list': latest_question_list }
     return render(request, 'polls/index.html', context)
 
-
+# 基于类的view
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
@@ -35,6 +35,7 @@ def detail(request, question_id):
 class DetailView(generic.DetailView):
     model = Question
     template_name = 'polls/detail.html'
+
 
 
 def results(request, question_id):
